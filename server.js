@@ -300,7 +300,7 @@ function calError(lat,lon,tresh){
     fs.appendFile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
       if(err)
         throw err;
-      console.log(lat+lon+time+"----data updated");
+      console.log(lat+" "+lon+" "+time+"----data updated");
     });
   });
 
