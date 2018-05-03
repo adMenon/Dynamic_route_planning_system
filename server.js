@@ -9,7 +9,7 @@ var inspect = require('util').inspect;
 
 app.set("view engine","ejs");
 
-var server=app.listen("8080",function(){
+var server=app.listen(process.env.PORT||"8080",function(){
 
 	console.log("server working");
 });
