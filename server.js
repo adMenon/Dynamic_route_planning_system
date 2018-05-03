@@ -11,6 +11,23 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.set("view engine","ejs");
 
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
 
 
 var server=app.listen(process.env.PORT||"8080",function(){
@@ -20,39 +37,11 @@ var server=app.listen(process.env.PORT||"8080",function(){
 
 app.use("/public",express.static("public"));
 
-app.get("/dashboard",function(req,res){
-  
-  //var wget = require('node-wget');
-  //wget({url: "https://docs.google.com/uc?export=download&id=1LrEWPjeh9n57nSaBrQXkC_9bZcyIfQk2", dest: "file.txt"},function(){
-
-  //console.log("downloaded1");
-  //});
-
-	console.log(req.body);
-	res.render("dashboard");
- 
-});
-
-app.get("/2",function(req,res){
-  
-  //var wget = require('node-wget');
-  //wget({url: "https://docs.google.com/uc?export=download&id=11zXcy24AuyxoX3wvuApL8O-d9IkXPzrY", dest: "file2.txt"},function(error, response, body){
-
-  //console.log(body);
-  //console.log("downloaded2");
-
-  //});
-
-  console.log(req.body);
-  res.render("printcoordinates");
-
-});
-
 
 var obj = parse(xml);
-var l=obj.root.children[1].children[0].children.length
-var lat= obj.root.children[1].children[0].children[l-1].attributes.lat
-var lon=obj.root.children[1].children[0].children[l-1].attributes.lon
+var l=obj.root.children[1].children[0].children.length;
+var lat= obj.root.children[1].children[0].children[l-1].attributes.lat;
+var lon=obj.root.children[1].children[0].children[l-1].attributes.lon;
 
 console.log("\n\nuser1\n\n")
 var lat_arr=[],long_arr=[],time_arr=[];
@@ -99,40 +88,6 @@ for(i=0;i<pred_lat.length;i++)
 	
 }
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-  var R = 6371; // Radius of the earth in km
-  var dLat = deg2rad(lat2-lat1);  // deg2rad below
-  var dLon = deg2rad(lon2-lon1); 
-  var a = 
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ; 
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-  var d = R * c; // Distance in km
-  return d;
-}
-
-function calError(lat,lon,tresh){
-  var min = 999999999;
-  var dist;
-  var optLat=pred_lat[0];
-  var optLon=pred_long[0];
-  for(var i = 0 ; i < pred_lat.length; i++)
-  {
-    dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],pred_long[i]);
-    if(dist<min)
-    {
-      min  = dist;
-      optLat=pred_lat[i];
-      optLon=pred_long[i];
-    }
-  }
-  if(min<tresh)
-    return true;
-  return false;
-}
-
 var year1=[];
 var month1=[];
 var day1=[];
@@ -149,7 +104,7 @@ for(i=0;i<l;i++)
 	minute1.push(""+time_arr[i][14]+time_arr[i][15]);
 	seconds1.push(""+time_arr[i][17]+time_arr[i][18]);
 	//console.log(year[i],month[i],day[i]);
-	console.log(year1[i],month1[i],day1[i],hour1[i],minute1[i],seconds1[i]);
+	//console.log(year1[i],month1[i],day1[i],hour1[i],minute1[i],seconds1[i]);
 }
 
 var time_arr2=[];
@@ -165,12 +120,9 @@ var seconds2=[];
 var distance=[];
 var time_d=[];
 
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
-}
 
-
-
+function read_file3(req,res)
+{
 fs.createReadStream('file3.csv')
   .pipe(csv())
   .on('data', function (data) {
@@ -191,23 +143,154 @@ fs.createReadStream('file3.csv')
 		//console.log(year[i],month[i],day[i]);
 		//console.log(year2[i],month2[i],day2[i],hour2[i],minute2[i],seconds2[i]);				
   	}
-
-  	for(i=0;i<time_arr.length-1;i++)
+  	var count=0;
+  	for(i=0;i<time_arr2.length-1;i++)
   	{
   		var d=getDistanceFromLatLonInKm(lat_arr[i],long_arr[i],lat_arr[i+1],long_arr[i+1]);
-  		//console.log(d);
-  		//if(d<0.5)
+  		console.log(d);
+  		count++;
+  		//if(count%5==0 && d<0.5)
+  		if (d<0.5)
   		{
-  			distance.push(d);
-  			time_d.push(hour1[i]+":"+minute1[i]+":"+seconds1[i]);
-  			console.log(distance[i],time_d[i]);
+  			distance.push(d*1000);
+  			time_d.push(hour2[i]+":"+minute2[i]+":"+seconds2[i]);
+  			//console.log(distance[i],time_d[i]);
+  		}
+  		else
+  		{
+  			distance.push(2.0);
+  			time_d.push(hour2[i]+":"+minute2[i]+":"+seconds2[i]);
   		}
   		
   	}
+  	
 
+  	console.log(distance,time_d);
+  	var data={dist:distance,tim:time_d};
+	res.render("dashboard",{data:data});
   });
+    
+}
 
+function read_file3_tables(req,res)
+{
+fs.createReadStream('file3.csv')
+  .pipe(csv())
+  .on('data', function (data) {
+   // console.log(data.lon);
+    time_arr2.push(data.time);
+    lat_arr2.push(data.lat);
+    long_arr2.push(data.lon);
+  })
+  .on('end', function () {
+  	for(i=0;i<time_arr2.length;i++)
+ 	{
+ 		year2.push(""+time_arr2[i][0]+time_arr2[i][1]+time_arr2[i][2]+time_arr2[i][3]);
+		month2.push(""+time_arr2[i][5]+time_arr2[i][6]);
+		day2.push(""+time_arr2[i][8]+time_arr2[i][9]);
+		hour2.push(""+time_arr2[i][11]+time_arr2[i][12]);
+		minute2.push(""+time_arr2[i][14]+time_arr2[i][15]);
+		seconds2.push(""+time_arr2[i][17]+time_arr2[i][18]);
+		//console.log(year[i],month[i],day[i]);
+		//console.log(year2[i],month2[i],day2[i],hour2[i],minute2[i],seconds2[i]);				
+  	}
+  	var count=0;
+  	for(i=0;i<time_arr2.length-1;i++)
+  	{
+  		//var d=getDistanceFromLatLonInKm(lat_arr[i],long_arr[i],lat_arr[i+1],long_arr[i+1]);
+  		//console.log(d);
+  		//count++;
+  		//if(count%5==0 && d<0.5)
+  		{
+  		//	distance.push(d*1000);
+  			time_d.push(hour2[i]+":"+minute2[i]+":"+seconds2[i]);
+  			//console.log(distance[i],time_d[i]);
+  		}
+  		
+  	}
+  	//console.log(distance,time_d);
+  	var data={dist:distance,tim:time_d,lat:lat_arr2,lon:long_arr2};
+	//console.log(data);
+	res.render("tables",{data:data});
+  });
+    
+}
+
+
+app.get("/dashboard",function(req,res){
+  
+  //var wget = require('node-wget');
+  //wget({url: "https://docs.google.com/uc?export=download&id=1LrEWPjeh9n57nSaBrQXkC_9bZcyIfQk2", dest: "file.txt"},function(){
+
+  //console.log("downloaded1");
+  //});
+  	 time_arr2=[];
+	 lat_arr2=[];
+	 long_arr2=[];
+	 year2=[];
+	 month2=[];
+	 day2=[];
+	 hour2=[];
+	 minute2=[];
+	 seconds2=[];
+	 distance=[];
+	 time_d=[];
+	read_file3(req,res);
  
+});
+
+app.get("/maps",function(req,res){
+  
+  //var wget = require('node-wget');
+  //wget({url: "https://docs.google.com/uc?export=download&id=11zXcy24AuyxoX3wvuApL8O-d9IkXPzrY", dest: "file2.txt"},function(error, response, body){
+
+  //console.log(body);
+  //console.log("downloaded2");
+
+  //});
+
+  console.log(req.body);
+  res.render("map");
+
+});
+
+app.get("/tables",function(req,res){
+   time_arr2=[];
+	lat_arr2=[];
+	long_arr2=[];
+	year2=[];
+	month2=[];
+	day2=[];
+	hour2=[];
+	minute2=[];
+	seconds2=[];
+	distance=[];
+	time_d=[];
+ read_file3_tables(req,res);
+});
+
+
+
+function calError(lat,lon,tresh){
+  var min = 999999999;
+  var dist;
+  var optLat=pred_lat[0];
+  var optLon=pred_long[0];
+  for(var i = 0 ; i < pred_lat.length; i++)
+  {
+    dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],pred_long[i]);
+    if(dist<min)
+    {
+      min  = dist;
+      optLat=pred_lat[i];
+      optLon=pred_long[i];
+    }
+  }
+  if(min<tresh)
+    return true;
+  return false;
+} 
+
 
 
   app.post("/location",urlencodedParser,function(req,res){
