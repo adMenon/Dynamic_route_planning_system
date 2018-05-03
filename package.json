@@ -1,0 +1,23 @@
+{
+  "name": "trafficmanagement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "csv-parser": "^1.12.1",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "node-wget": "^0.4.2",
+    "node-wget-promise": "^0.1.4",
+    "togeojson": "^0.16.0",
+    "wget": "0.0.1",
+    "xml-parser": "^1.2.1"
+  }
+}
