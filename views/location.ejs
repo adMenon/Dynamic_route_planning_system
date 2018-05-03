@@ -43,13 +43,13 @@
                             <p>Maps</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="/tables">
                         <a href="/tables">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <p>Table List</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="/location">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <p>Location</p>
@@ -69,7 +69,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo">Table List</a>
+                        <a class="navbar-brand" href="#pablo">Current Location</a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -121,52 +121,14 @@
             </nav>
             <!-- End Navbar -->
             <div class="panel-header panel-header-sm">
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title"> Simple Table</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class=" text-primary">
-                                            <th>
-                                                Latitude
-                                            </th>
-                                            <th>
-                                                Longitude
-                                            </th>
-                                            <th>
-                                                Time
-                                            </th>
-                                            <% for(var i=0;i< data.tim.length;i++){ %>
-                                           <tr>
-                                               <td>
-                                                   <%= data.lat[i] %>
-                                               </td>
-                                               <td>
-                                                   <%= data.lon[i] %>
-                                               </td>
-                                               <td>
-                                                   <%= data.tim[i] %>
-                                               </td>
-                                           </tr>
-                                           <% }; %> 
-                                        </thead>
-                                        <tbody>
-                                          
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-            
-        </div>
+           </div>
+                 <center>
+                     <h3 style="color: black">
+                         Current Location<br>
+                         Latitude:<%= data.cur_lat %><br>
+                         Longitude:<%= data.cur_long %>
+                     </h3>
+                 </center>       
     </div>
 </body>
 <!--   Core JS Files   -->

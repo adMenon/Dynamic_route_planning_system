@@ -270,18 +270,23 @@ app.get("/tables",function(req,res){
 });
 
 
+var cur_lat=13.0,cur_long=80.0;
 
- 
-
-
-  app.post("/location",urlencodedParser,function(req,res){
+app.post("/location",urlencodedParser,function(req,res){
     var lat=req.body.latitude;
     var lon = req.body.longitude;
     var time = req.body.time;
-    fs.appendFile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
+    cur_lat=lat;
+    cur_long=lon;
+    fs.appendfile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
       if(err)
         throw err;
-      console.log(lat+" "+lon+" "+time+"----data updated");
+      console.log(lat+lon+time+"----data updated");
     });
   });
 
+app.get("/location",urlencodedParser,function(req,res){
+    
+	var data={cur_lat:cur_lat,cur_long:cur_long};    
+    res.render("location",{data:data});
+  });
