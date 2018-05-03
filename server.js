@@ -278,7 +278,7 @@ app.post("/location",urlencodedParser,function(req,res){
     var time = req.body.time;
     cur_lat=lat;
     cur_long=lon;
-    fs.appendfile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
+    fs.appendFile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
       if(err)
         throw err;
       console.log(lat+lon+time+"----data updated");
