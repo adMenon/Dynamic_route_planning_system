@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../public/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../public/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Now UI Dashboard by Creative Tim</title>
+    <title>Traffic Management</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -18,24 +18,21 @@
     <link href="../public/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../public/demo/demo.css" rel="stylesheet" />
-   <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-   <script>
-    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-   </script>
-   <style>
-    .zc-ref {
-      display: none;
-    }
-   </style>
 
+
+    <style>
+        .zc-ref {
+          display: none;
+        }
+    </style>
 
 
 </head>
   
 
 <body class="">
-    <div class="wrapper ">
+   
+    <div class="wrapper conta">
         <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -98,7 +95,7 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div style="margin-left: 0%;" id='myChart'><a class="zc-ref" href="#"></a>
+            <div style="margin-left: -11%;" id='myChart'><a class="zc-ref" href="#"></a>
             </div>
             
             <div class="container">
@@ -122,7 +119,7 @@
                             </div>
                             <div class="form-group">
                               <label for="pwd">To:</label>
-                              <input type="text" class="form-control" id="pwd">
+                              <input type="password" class="form-control" id="pwd">
                             </div>
                           </form>
                         
@@ -171,86 +168,150 @@
   zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
   ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
 </script>
-<div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
-  <script>
+<script>
     zingchart.THEME = "classic";
     var myConfig = {
-      "background-color": "white",
       "type": "line",
+      "background-color": "#003849",
+      "utc": true,
       "title": {
-        "color": "#333",
-        "background-color": "white",
-        "width": "60%",
-        "text-align": "left",
-      },
-      "subtitle": {
-        "text-align": "left",
-        "width": "60%"
-      },
-      "legend": {
-        "layout": "x1",
-        "margin-top": "5%",
-        "border-width": "0",
-        "shadow": false,
-        "marker": {
-          "cursor": "hand",
-          "border-width": "0"
-        },
-        "background-color": "white",
-        "item": {
-          "cursor": "hand"
-        },
-        "toggle-action": "remove"
-      },
-      "scaleX": {
-        "values": "0:450:10",
-        "max-items": 8
-      },
-      "scaleY":
-       {
-        "values": "0:150:10",
-        "line-color": "#333"
-      },
-      "tooltip": {
-        "text": "%t: %v outbreaks in %k"
-      },
-      "plot": {
-        "line-width": 3,
-        "marker": {
-          "size": 2
-        },
-        "selection-mode": "multiple",
-        "background-mode": "graph",
-        "selected-state": {
-          "line-width": 4
-        },
-        "background-state": {
-          "line-color": "#eee",
-          "marker": {
-            "background-color": "none"
-          }
-        }
+        "y": "7px",
+        //"text": "TRAFFIC",
+        "background-color": "#003849",
+        "font-size": "24px",
+        "font-color": "white",
+        "height": "25px"
       },
       "plotarea": {
-        "margin": "15% 25% 10% 7%"
+        "margin": "20% 8% 14% 12%",
+        "background-color": "#003849"
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "width": "75%",
+        "text-align": "middle",
+        "x": "25%",
+        "y": "10%",
+        "item": {
+          "font-color": "#f6f7f8",
+          "font-size": "14px"
+        }
+      },
+      "scale-x": {
+       // "min-value": 10,//1383292800000,
+       "values": "0:1000:20",
+        "shadow": 0,
+        "step": 36,
+        "line-color": "#f6f7f8",
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "transform": {
+          //"type": "date",
+          //"all": "%D+100, %d %M<br />%h:%i %A",
+          "guide": {
+            "visible": false
+          },
+          "item": {
+            "visible": false
+          }
+        },
+        "label": {
+          "visible": false
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "values": "0:250:50",
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "tick": {
+          "line-color": "#f6f7f8"
+        },
+        "guide": {
+          "line-color": "#f6f7f8",
+          "line-style": "dashed"
+        },
+        "item": {
+          "font-color": "#f6f7f8"
+        },
+        "label": {
+          "text": "Page Views",
+          "font-color": "#f6f7f8"
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#f6f7f8",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#00baf0",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "3px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "hover-marker": {
+          "type": "circle",
+          "size": 4,
+          "border-width": "1px"
+        }
       },
       "series": [{
-        "values":  [<%= data.dist %> ],
-        "text": "Undeclared",
-        "line-color": "#a6cee3",
+        "values": [
+         <%= data.dist %>
+        ],
+        "text": "Pricing",
+        "line-color": "#007790",
+        "legend-marker": {
+          "type": "circle",
+          "size": 5,
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
+        },
         "marker": {
-          "background-color": "#a6cee3",
-          "border-color": "#a6cee3"
+          "background-color": "#007790",
+          "border-width": 1,
+          "shadow": 0,
+          "border-color": "#69dbf1"
         }
-      }, 
-      ]
+      }]
     };
 
     zingchart.render({
       id: 'myChart',
       data: myConfig,
-      height: 600,
-      width : 1225
+      height: 720,
+      width: 1230
     });
   </script>
+
 </html>
