@@ -15,6 +15,7 @@
     "express": "^4.16.3",
     "node-wget": "^0.4.2",
     "node-wget-promise": "^0.1.4",
+    "socket.io": "^2.1.0",
     "togeojson": "^0.16.0",
     "wget": "0.0.1",
     "xml-parser": "^1.2.1"

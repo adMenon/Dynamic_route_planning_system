@@ -3,7 +3,9 @@ var app = express();
 var fs=require("fs");
 var parse = require('xml-parser');
 var xml = fs.readFileSync('file.txt', 'utf8');
-var inspect = require('util').inspect;
+var inspect = require('util').inspect;var http = require('http').Server(app);
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var bodyParser=require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -30,10 +32,12 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 }
 
 
-var server=app.listen(process.env.PORT||"8080",function(){
 
-  console.log("server working");
+http.listen(8080, function(){
+  console.log('listening on *:3000');
 });
+
+
 
 app.use("/public",express.static("public"));
 
@@ -119,6 +123,81 @@ var minute2=[];
 var seconds2=[];
 var distance=[];
 var time_d=[];
+
+var contents = fs.readFileSync("val.json");
+var contents2 = fs.readFileSync("val2.json");
+var route1 = JSON.parse(contents);
+var route2 = JSON.parse(contents2);
+var coord = [{'lat': 13.555216, 'lon': 80.027301},{'lat': 13.560786, 'lon': 80.026996},{'lat': 13.561295, 'lon': 80.023782},{'lat': 13.557910, 'lon': 80.018976}
+,{'lat': 13.554012, 'lon': 80.013900},{'lat': 13.553478, 'lon': 80.011429},{'lat': 13.551799, 'lon': 80.007822},
+{'lat': 13.551002, 'lon': 80.005999},{'lat': 13.549593, 'lon': 80.003663},{'lat': 13.548192, 'lon': 80.000188}];
+app.use('/assets', express.static('assets'));
+var it = 0;
+/*
+setInterval(function(){
+  wget({url: "https://docs.google.com/uc?export=download&id=1LrEWPjeh9n57nSaBrQXkC_9bZcyIfQk2", dest: "file.txt"},function(err,res,body){
+ 	  var xml = fs.readFileSync('file.txt', 'utf8');
+  var obj = parse(xml);
+  var  l,lat,lon;
+  	console.log(obj);
+  	console.log("DSF");
+	if(xml.length){
+		l=obj.root.children[1].children[0].children.length
+		lat= obj.root.children[1].children[0].children[l-1].attributes.lat
+		lon=obj.root.children[1].children[0].children[l-1].attributes.lon
+		console.log(obj.root.children[1].children[0].children[l-1].attributes)
+		console.log(lat,lon);
+	
+	}
+
+
+
+
+	console.log(lat);
+	console.log(lon);
+   io.emit('changelocation',{'lat': lat, 'lon': lon});
+  });
+},10000);
+
+*/
+var flag = 0;
+setInterval(function(){
+	console.log(i);
+	if(flag == 0){
+		lat = coord[it]['lat'];
+		lon = coord[it]['lon'];
+		time = coord[it]['time'];
+		it = (it + 1)%10;
+		if(it == 0)flag = 1;
+
+		console.log(lat);
+		console.log(lon);
+	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+	}
+	if(flag == 1){
+		lat = route1[it]['lat'];
+		lon = route1[it]['lon'];
+		time = route1[it]['time'];
+		it = (it + 1)%13;
+		if(it == 0)flag = 2;
+
+		console.log(lat);
+		console.log(lon);
+	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+	}
+	if(flag == 2){
+		lat = route2[it]['lat'];
+		lon = route2[it]['lon'];
+		time = route2[it]['time'];
+		it = (it + 1)%16;
+		if(it == 0)flag = 0;
+
+		console.log(lat);
+		console.log(lon);
+	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+	}
+},2000);
+
 
 
 function read_file3(req,res)
