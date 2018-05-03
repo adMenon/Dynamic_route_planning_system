@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../public/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../public/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Traffic Management</title>
+    <title>Now UI Dashboard by Creative Tim</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -31,8 +31,7 @@
   
 
 <body class="">
-   
-    <div class="wrapper conta">
+    <div class="wrapper ">
         <div class="sidebar" data-color="orange">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
@@ -45,19 +44,19 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="active">
-                        <a href="/dashboard">
+                        <a href="../examples/dashboard.html">
                             <i class="now-ui-icons design_app"></i>
                             <p>Average Traffic Density</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/maps">
+                        <a href="../examples/map.html">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Maps</p>
                         </a>
                     </li>
                     <li>
-                        <a href="/tables">
+                        <a href="../examples/tables.html">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <p>Table List</p>
                         </a>
@@ -95,7 +94,7 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div style="margin-left: -11%;" id='myChart'><a class="zc-ref" href="#"></a>
+            <div id='myChart'><a class="zc-ref" href="#"></a>
             </div>
             
             <div class="container">
@@ -176,7 +175,7 @@
       "utc": true,
       "title": {
         "y": "7px",
-        //"text": "TRAFFIC",
+        "text": "TRAFFIC",
         "background-color": "#003849",
         "font-size": "24px",
         "font-color": "white",
@@ -201,10 +200,10 @@
         }
       },
       "scale-x": {
-       // "min-value": 10,//1383292800000,
-       "values": "0:1000:20",
+        //"min-value": 1383292800000,
+        "values": "0:2500:50",
         "shadow": 0,
-        "step": 36,
+        //"step": "36minute",
         "line-color": "#f6f7f8",
         "tick": {
           "line-color": "#f6f7f8"
@@ -217,7 +216,7 @@
         },
         "transform": {
           //"type": "date",
-          //"all": "%D+100, %d %M<br />%h:%i %A",
+          //"all": "%D, %d %M<br />%h:%i %A",
           "guide": {
             "visible": false
           },
@@ -285,7 +284,7 @@
       },
       "series": [{
         "values": [
-         <%= data.dist %>
+          <%=data.dist%>
         ],
         "text": "Pricing",
         "line-color": "#007790",
@@ -309,7 +308,7 @@
     zingchart.render({
       id: 'myChart',
       data: myConfig,
-      height: 720,
+      height: 800,
       width: 1230
     });
   </script>
