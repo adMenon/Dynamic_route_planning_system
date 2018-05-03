@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../public/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../public/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Now UI Dashboard by Creative Tim</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -14,17 +14,21 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <!-- CSS Files -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../public/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <link href="../public/demo/demo.css" rel="stylesheet" />
+   <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+   <script>
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+   </script>
+   <style>
+    .zc-ref {
+      display: none;
+    }
+   </style>
 
-
-    <style>
-        .zc-ref {
-          display: none;
-        }
-    </style>
 
 
 </head>
@@ -44,19 +48,19 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="active">
-                        <a href="../examples/dashboard.html">
+                        <a href="/dashboard">
                             <i class="now-ui-icons design_app"></i>
                             <p>Average Traffic Density</p>
                         </a>
                     </li>
                     <li>
-                        <a href="../examples/map.html">
+                        <a href="/maps">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Maps</p>
                         </a>
                     </li>
                     <li>
-                        <a href="../examples/tables.html">
+                        <a href="/tables">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <p>Table List</p>
                         </a>
@@ -94,7 +98,7 @@
                 </div>
             </nav>
             <!-- End Navbar -->
-            <div id='myChart'><a class="zc-ref" href="#"></a>
+            <div style="margin-left: 0%;" id='myChart'><a class="zc-ref" href="#"></a>
             </div>
             
             <div class="container">
@@ -118,7 +122,7 @@
                             </div>
                             <div class="form-group">
                               <label for="pwd">To:</label>
-                              <input type="password" class="form-control" id="pwd">
+                              <input type="text" class="form-control" id="pwd">
                             </div>
                           </form>
                         
@@ -139,23 +143,23 @@
     </div>
 </body>
 <!--   Core JS Files   -->
-<script src="../assets/js/core/jquery.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="../public/js/core/jquery.min.js"></script>
+<script src="../public/js/core/popper.min.js"></script>
+<script src="../public/js/core/bootstrap.min.js"></script>
+<script src="../public/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <!--  Google Maps Plugin    -->
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Chart JS -->
-<script src="../assets/js/plugins/chartjs.min.js"></script>
+<script src="../public/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
+<script src="../public/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="../assets/js/now-ui-dashboard.js?v=1.0.1"></script>
+<script src="../public/js/now-ui-dashboard.js?v=1.0.1"></script>
 <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/demo/demo.js"></script>
+<script src="../public/demo/demo.js"></script>
 <script>
     $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
+        // Javascript method's body can be found in public/js/demos.js
         demo.initDashboardPageCharts();
     });
 </script>
@@ -167,188 +171,86 @@
   zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
   ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
 </script>
-<script>
+<div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+  <script>
     zingchart.THEME = "classic";
     var myConfig = {
+      "background-color": "white",
       "type": "line",
-      "background-color": "#003849",
-      "utc": true,
       "title": {
-        "y": "7px",
-        "text": "TRAFFIC",
-        "background-color": "#003849",
-        "font-size": "24px",
-        "font-color": "white",
-        "height": "25px"
+        "color": "#333",
+        "background-color": "white",
+        "width": "60%",
+        "text-align": "left",
       },
-      "plotarea": {
-        "margin": "20% 8% 14% 12%",
-        "background-color": "#003849"
+      "subtitle": {
+        "text-align": "left",
+        "width": "60%"
       },
       "legend": {
-        "layout": "float",
-        "background-color": "none",
-        "border-width": 0,
-        "shadow": 0,
-        "width": "75%",
-        "text-align": "middle",
-        "x": "25%",
-        "y": "10%",
+        "layout": "x1",
+        "margin-top": "5%",
+        "border-width": "0",
+        "shadow": false,
+        "marker": {
+          "cursor": "hand",
+          "border-width": "0"
+        },
+        "background-color": "white",
         "item": {
-          "font-color": "#f6f7f8",
-          "font-size": "14px"
-        }
+          "cursor": "hand"
+        },
+        "toggle-action": "remove"
       },
-      "scale-x": {
-        "min-value": 1383292800000,
-        "shadow": 0,
-        "step": 3600000,
-        "line-color": "#f6f7f8",
-        "tick": {
-          "line-color": "#f6f7f8"
-        },
-        "guide": {
-          "line-color": "#f6f7f8"
-        },
-        "item": {
-          "font-color": "#f6f7f8"
-        },
-        "transform": {
-          "type": "date",
-          "all": "%D, %d %M<br />%h:%i %A",
-          "guide": {
-            "visible": false
-          },
-          "item": {
-            "visible": false
-          }
-        },
-        "label": {
-          "visible": false
-        },
-        "minor-ticks": 0
+      "scaleX": {
+        "values": "0:300:10",
+        "max-items": 8
       },
-      "scale-y": {
-        "values": "0:1000:250",
-        "line-color": "#f6f7f8",
-        "shadow": 0,
-        "tick": {
-          "line-color": "#f6f7f8"
-        },
-        "guide": {
-          "line-color": "#f6f7f8",
-          "line-style": "dashed"
-        },
-        "item": {
-          "font-color": "#f6f7f8"
-        },
-        "label": {
-          "text": "Page Views",
-          "font-color": "#f6f7f8"
-        },
-        "minor-ticks": 0,
-        "thousands-separator": ","
-      },
-      "crosshair-x": {
-        "line-color": "#f6f7f8",
-        "plot-label": {
-          "border-radius": "5px",
-          "border-width": "1px",
-          "border-color": "#f6f7f8",
-          "padding": "10px",
-          "font-weight": "bold"
-        },
-        "scale-label": {
-          "font-color": "#00baf0",
-          "background-color": "#f6f7f8",
-          "border-radius": "5px"
-        }
+      "scaleY":
+       {
+        "values": "0:150:10",
+        "line-color": "#333"
       },
       "tooltip": {
-        "visible": false
+        "text": "%t: %v outbreaks in %k"
       },
       "plot": {
-        "tooltip-text": "%t views: %v<br>%k",
-        "shadow": 0,
-        "line-width": "3px",
+        "line-width": 3,
         "marker": {
-          "type": "circle",
-          "size": 3
+          "size": 2
         },
-        "hover-marker": {
-          "type": "circle",
-          "size": 4,
-          "border-width": "1px"
+        "selection-mode": "multiple",
+        "background-mode": "graph",
+        "selected-state": {
+          "line-width": 4
+        },
+        "background-state": {
+          "line-color": "#eee",
+          "marker": {
+            "background-color": "none"
+          }
         }
       },
+      "plotarea": {
+        "margin": "15% 25% 10% 7%"
+      },
       "series": [{
-        "values": [
-          149.2,
-          174.3,
-          187.7,
-          147.1,
-          129.6,
-          189.6,
-          230,
-          164.5,
-          171.7,
-          163.4,
-          194.5,
-          200.1,
-          193.4,
-          254.4,
-          287.8,
-          246,
-          199.9,
-          218.3,
-          244,
-          312.2,
-          284.5,
-          249.2,
-          305.2,
-          286.1,
-          347.7,
-          278,
-          240.3,
-          212.4,
-          237.1,
-          253.2,
-          186.1,
-          153.6,
-          168.5,
-          140.9,
-          86.9,
-          49.4,
-          24.7,
-          64.8,
-          114.4,
-          137.4
-        ],
-        "text": "Pricing",
-        "line-color": "#007790",
-        "legend-marker": {
-          "type": "circle",
-          "size": 5,
-          "background-color": "#007790",
-          "border-width": 1,
-          "shadow": 0,
-          "border-color": "#69dbf1"
-        },
+        "values":  [<%= data.dist %> ],
+        "text": "Undeclared",
+        "line-color": "#a6cee3",
         "marker": {
-          "background-color": "#007790",
-          "border-width": 1,
-          "shadow": 0,
-          "border-color": "#69dbf1"
+          "background-color": "#a6cee3",
+          "border-color": "#a6cee3"
         }
-      }]
+      }, 
+      ]
     };
 
     zingchart.render({
       id: 'myChart',
       data: myConfig,
-      height: 400,
-      width: 1230
+      height: 600,
+      width : 1225
     });
   </script>
-
 </html>
