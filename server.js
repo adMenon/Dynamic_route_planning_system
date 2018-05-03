@@ -278,7 +278,7 @@ app.get("/tables",function(req,res){
     var lat=req.body.latitude;
     var lon = req.body.longitude;
     var time = req.body.time;
-    fs.appendfile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
+    fs.appendFile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
       if(err)
         throw err;
       console.log(lat+lon+time+"----data updated");
