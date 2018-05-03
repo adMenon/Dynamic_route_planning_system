@@ -271,37 +271,17 @@ app.get("/tables",function(req,res){
 
 
 
-function calError(lat,lon,tresh){
-  var min = 999999999;
-  var dist;
-  var optLat=pred_lat[0];
-  var optLon=pred_long[0];
-  for(var i = 0 ; i < pred_lat.length; i++)
-  {
-    dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],pred_long[i]);
-    if(dist<min)
-    {
-      min  = dist;
-      optLat=pred_lat[i];
-      optLon=pred_long[i];
-    }
-  }
-  if(min<tresh)
-    return true;
-  return false;
-} 
-
+ 
 
 
   app.post("/location",urlencodedParser,function(req,res){
     var lat=req.body.latitude;
     var lon = req.body.longitude;
     var time = req.body.time;
-    fs.appendFile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
+    fs.appendfile("Time-Location.txt",lat+" "+lon+" "+time+"\n",function(err){
       if(err)
         throw err;
-      console.log(lat+" "+lon+" "+time+"----data updated");
+      console.log(lat+lon+time+"----data updated");
     });
   });
-
 

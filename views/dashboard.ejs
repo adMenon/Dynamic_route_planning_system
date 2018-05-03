@@ -18,13 +18,17 @@
     <link href="../public/css/now-ui-dashboard.css?v=1.0.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../public/demo/demo.css" rel="stylesheet" />
+   <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+   <script>
+    zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+   </script>
+   <style>
+    .zc-ref {
+      display: none;
+    }
+   </style>
 
-
-    <style>
-        .zc-ref {
-          display: none;
-        }
-    </style>
 
 
 </head>
@@ -44,19 +48,19 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="active">
-                        <a href="../examples/dashboard.html">
+                        <a href="/dashboard">
                             <i class="now-ui-icons design_app"></i>
                             <p>Average Traffic Density</p>
                         </a>
                     </li>
                     <li>
-                        <a href="../examples/map.html">
+                        <a href="/maps">
                             <i class="now-ui-icons location_map-big"></i>
                             <p>Maps</p>
                         </a>
                     </li>
                     <li>
-                        <a href="../examples/tables.html">
+                        <a href="/tables">
                             <i class="now-ui-icons design_bullet-list-67"></i>
                             <p>Table List</p>
                         </a>
@@ -118,7 +122,7 @@
                             </div>
                             <div class="form-group">
                               <label for="pwd">To:</label>
-                              <input type="password" class="form-control" id="pwd">
+                              <input type="text" class="form-control" id="pwd">
                             </div>
                           </form>
                         
@@ -312,5 +316,4 @@
       width: 1230
     });
   </script>
-
 </html>
