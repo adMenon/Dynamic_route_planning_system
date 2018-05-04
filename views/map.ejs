@@ -167,6 +167,7 @@
 		var coord = [{'lat': 13.555216, 'lon': 80.027301},{'lat': 13.560786, 'lon': 80.026996},{'lat': 13.561295, 'lon': 80.023782},{'lat': 13.557910, 'lon': 80.018976}
 ,{'lat': 13.554012, 'lon': 80.013900},{'lat': 13.553478, 'lon': 80.011429},{'lat': 13.551799, 'lon': 80.007822},
 {'lat': 13.551002, 'lon': 80.005999},{'lat': 13.549593, 'lon': 80.003663},{'lat': 13.548192, 'lon': 80.000188}];
+var curloc = {'lat': 13.555216, 'lon': 80.027301};
 var map;
        $(function () {
       var socket = io();
@@ -184,7 +185,8 @@ var map;
 		socket.on('changelocation', function(msg){
 		  	console.log(msg);
 			console.log("RECEIVED");
-			marker.setMap( map );
+			marker.setMap(map);
+            marker2.setMap(map);
    		    moveBus( map, marker ,msg, msg.time);
 		});
 	  });      
@@ -203,8 +205,12 @@ var map;
 	else
 		marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
 
+    marker2.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+    marker2.setPosition( new google.maps.LatLng( msg.clat, msg.clon ) );
+    console.log("HERE");
     marker.setPosition( new google.maps.LatLng( msg.lat, msg.lon ) );
     map.panTo( new google.maps.LatLng( msg.lat, msg.lon ) );
+
 };
          
       function initMap() {
@@ -218,6 +224,13 @@ var map;
 		      position: uluru,
 		      map: map
 		    });
+    marker2 = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+    marker2.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+    
+   
         directionsDisplay.setMap(map);
         calculateAndDisplayRoute(directionsService, directionsDisplay,X,Y);
       }

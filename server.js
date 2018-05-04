@@ -176,6 +176,7 @@ setInterval(function(){
 },10000);
 
 */
+var cur_lat=13.0,cur_long=80.0;
 var flag = 0;
 setInterval(function(){
 	console.log(i);
@@ -188,7 +189,7 @@ setInterval(function(){
 
 		console.log(lat);
 		console.log(lon);
-	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time,'clat': cur_lat,'clon': cur_long});
 	}
 	if(flag == 1){
 		lat = route1[it]['lat'];
@@ -199,7 +200,7 @@ setInterval(function(){
 
 		console.log(lat);
 		console.log(lon);
-	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+		io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time,'clat': cur_lat,'clon': cur_long});
 	}
 	if(flag == 2){
 		lat = route2[it]['lat'];
@@ -210,7 +211,7 @@ setInterval(function(){
 
 		console.log(lat);
 		console.log(lon);
-	   io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time});
+	    io.emit('changelocation',{'lat': lat, 'lon': lon, 'time': time,'clat': cur_lat,'clon': cur_long});
 	}
 },2000);
 
@@ -384,7 +385,7 @@ app.get("/tables",function(req,res){
 });
 
 
-var cur_lat=13.0,cur_long=80.0;
+
 
 
 app.post("/location",urlencodedParser,function(req,res){
