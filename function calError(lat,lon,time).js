@@ -11,7 +11,7 @@ function calError(lat,lon,time)
 	{
 		for(var i = 0 ; i<pred_lat.length ; i++)
 		{
-			dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],preds_long[i]);
+			dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],pred_long[i]);
 			if(dist<min)
 			{
 				dist = min;
@@ -20,7 +20,9 @@ function calError(lat,lon,time)
 			}
 		}	
 		if(min<tresh)
-			return 1;
-		return 0;
+			return false;
+		return true;
 	}
+	else
+		return false;
 }

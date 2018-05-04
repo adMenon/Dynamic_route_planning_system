@@ -142,7 +142,10 @@
                                             <th>
                                                 Time
                                             </th>
-                                            <% for(var i=0;i< data.tim.length;i++){ %>
+                                            <th>
+                                                Penalty
+                                            </th>
+                                            <% for(var i=0;i< data.pen.length;i++){ %>
                                            <tr>
                                                <td>
                                                    <%= data.lat[i] %>
@@ -153,6 +156,9 @@
                                                <td>
                                                    <%= data.tim[i] %>
                                                </td>
+                                               <td>
+                                                <%= data.pen[i] %>
+                                            </td>
                                            </tr>
                                            <% }; %> 
                                         </thead>

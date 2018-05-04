@@ -30,8 +30,39 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var d = R * c; // Distance in km
   return d;
 }
+	var pred_lat=[13.555216,13.560786,13.561295,13.557910,13.554012,13.553478,13.551799,13.551002,13.549593,13.548192];
+	var pred_long=[80.027301,80.026996,80.023782,80.018976,80.013900,80.011429,80.007822,80.005999,80.003663,80.000188];
+	var penalty=[];
+	var penalty2=[];
 
-
+function calError(lat,lon,time)
+{
+	var min = 999999999;
+	var optLat = pred_lat[0];
+	var optLon = pred_long[0];
+	var dist;
+	var tresh = 0.02;
+	var begin_time = 600;
+	var end_time = 700;
+	if(time>begin_time && time<end_time)
+	{
+		for(var i = 0 ; i<pred_lat.length ; i++)
+		{
+			dist = getDistanceFromLatLonInKm(lat,lon,pred_lat[i],pred_long[i]);
+			if(dist<min)
+			{
+				dist = min;
+				optLat = pred_lat[i];
+				optLOn = pred_long[i];
+			}
+		}	
+		if(min<tresh)
+			return false;
+		return true;
+	}
+	else
+		return false;
+}
 
 http.listen(process.env.PORT||8080, function(){
   console.log('listening on *:8080');
@@ -72,25 +103,10 @@ for(i=0;i<l;i++)
 
 
 
-var pred_lat=[14.5,18.5,17.6];
-var pred_long=[80.02,90.03,90.01];
 
 
-for(i=0;i<pred_lat.length;i++)
-{	
-	var min=99999999;
-	var minj=0;
-	for(var j=0;j<lat_arr.length;j++)
-	{
-		var temp=Math.sqrt((pred_lat[i]-lat_arr[j])*(pred_lat[i]-lat_arr[j])+(pred_long[i]-long_arr[j])*(pred_long[i]-long_arr[j]));
-		if(temp<min)
-		{
-			min=temp;
-			minj=j;
-		}
-	}
-	
-}
+
+
 
 var year1=[];
 var month1=[];
@@ -223,7 +239,7 @@ fs.createReadStream('file3.csv')
 		//console.log(year2[i],month2[i],day2[i],hour2[i],minute2[i],seconds2[i]);				
   	}
   	var count=0;
-  	for(i=0;i<time_arr2.length-1;i++)
+  	for(i=0;i<time_arr.length-1;i++)
   	{
   		var d=getDistanceFromLatLonInKm(lat_arr[i],long_arr[i],lat_arr[i+1],long_arr[i+1]);
   		console.log(d);
@@ -232,16 +248,17 @@ fs.createReadStream('file3.csv')
   		if (d<0.5)
   		{
   			distance.push(d*1000);
-  			time_d.push(hour2[i]+":"+minute2[i]+":"+seconds2[i]);
+  			time_d.push(hour1[i]+":"+minute1[i]+":"+seconds1[i]);
   			//console.log(distance[i],time_d[i]);
   		}
   		else
   		{
   			distance.push(2.0);
-  			time_d.push(hour2[i]+":"+minute2[i]+":"+seconds2[i]);
+  			time_d.push(hour1[i]+":"+minute1[i]+":"+seconds1[i]);
   		}
   		
   	}
+
   	
 
   	console.log(distance,time_d);
@@ -287,8 +304,25 @@ fs.createReadStream('file3.csv')
   		}
   		
   	}
+  	
+	for(i=0;i<lat_arr.length;i++)
+	{	
+		var min=99999999;
+		var minj=0;
+		penalty[i]=calError(lat_arr[i],long_arr[i],time_arr[i]);
+	
+	}
+	for(i=0;i<lat_arr2.length;i++)
+	{	
+		var min=99999999;
+		var minj=0;
+		penalty2[i]=calError(lat_arr2[i],long_arr2[i],time_arr2[i]);
+	
+	}
+
   	//console.log(distance,time_d);
-  	var data={dist:distance,tim:time_d,lat:lat_arr2,lon:long_arr2};
+  	console.log(penalty);
+  	var data={dist:distance,tim:time_d,lat:lat_arr2,lon:long_arr2,pen:penalty};
 	//console.log(data);
 	res.render("tables",{data:data});
   });
@@ -346,10 +380,12 @@ app.get("/tables",function(req,res){
 	distance=[];
 	time_d=[];
  read_file3_tables(req,res);
+ 
 });
 
 
 var cur_lat=13.0,cur_long=80.0;
+
 
 app.post("/location",urlencodedParser,function(req,res){
     var lat=req.body.latitude;
